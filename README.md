@@ -22,20 +22,20 @@ grpc-vm-plugin/
 
 ---
 
-## ✅ Local Setup Instructions
+##  Setup Instructions
 
-### 1️⃣ Clone the Repository
+### 1️ Clone the Repository
 ```bash
 git clone https://github.com/kairveeehh/grpc-vm-plugin.git
 cd grpc-vm-plugin
 ```
 
-### 2️⃣ Install Required Go Modules
+### 2️ Install Required Go Modules
 ```bash
 go mod tidy
 ```
 
-### 3️⃣ Install `protoc` and Go plugins (if not already installed)
+### 3️ Install `protoc` and Go plugins (if not already installed)
 ```bash
 sudo apt update
 sudo apt install -y protobuf-compiler
@@ -48,52 +48,48 @@ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 export PATH="$PATH:$(go env GOPATH)/bin"
 ```
 
-### 4️⃣ Generate Go gRPC Code from Proto
+### 4️ Generate Go gRPC Code from Proto
 ```bash
 protoc --go_out=. --go-grpc_out=. proto/vm.proto
 ```
 
-### 5️⃣ Build the Plugin (gRPC Server)
+### 5️ Build the Plugin (gRPC Server)
 ```bash
 cd plugin
 go build -o vmplugin
 cd ..
 ```
 
-### 6️⃣ Build the Controller (gRPC Client)
+### 6️ Build the Controller (gRPC Client)
 ```bash
 go build -o controller
 ```
 
-### 7️⃣ Run the Controller (It will start the plugin and interact via gRPC)
+### 7️ Run the Controller (It will start the plugin and interact via gRPC)
 ```bash
 ./controller
 ```
 
 ---
 
-## 🔧 Example Output (Screenshot Example)
-```
-2025/03/21 10:15:20 Start Response: VM Started Successfully
-2025/03/21 10:15:20 Info Response: VM is Running
-2025/03/21 10:15:20 Stop Response: VM Stopped Successfully
-```
+## Output screenshot 
+
 
 ---
 
-## 🔹 Further Use Case Extension - Real QEMU VM Control
+###  Extension - Real QEMU VM Control
 This mock plugin structure can be extended to control **real VMs using QEMU**:
 
 - Replace the mock `Start`, `Info`, `Stop` logic in the plugin with **QMP (QEMU Monitor Protocol)** commands.
 - Launch actual QEMU instances.
 - Interact with running VMs (check status, shut down, query stats).
 
-📅 **Example:**
+**Example:**
 ```go
 cmd := exec.Command("qemu-system-x86_64", "-qmp", "tcp:localhost:4444,server,nowait", "-hda", "alpine.qcow2")
 ```
 
-## 👉 Author
+### Author
 GitHub: [kairveeehh](https://github.com/kairveeehh)
 
 ---
